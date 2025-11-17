@@ -1,20 +1,19 @@
+import axios from "axios";
+import { BookInfo } from "./components/book-info";
+import { DataSource } from "./components/data-source";
 import { UserInfo } from "./components/user-info";
-import { UserLoader } from "./components/user-loader";
+
+const fetchData = async (url) => {
+  const response = await axios.get(url);
+  return response.data;
+};
 
 function App() {
   return (
     <>
-      <UserLoader userId={"1"}>
+      <DataSource getData={() => fetchData("/users/1")} resourceName={"user"}>
         <UserInfo />
-      </UserLoader>
-
-      <UserLoader userId={"2"}>
-        <UserInfo />
-      </UserLoader>
-
-      <UserLoader userId={"3"}>
-        <UserInfo />
-      </UserLoader>
+      </DataSource>
     </>
   );
 }
